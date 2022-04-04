@@ -4,6 +4,7 @@ package com.example.mvvmdaggerhilt.viewmodel;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.mvvmdaggerhilt.di.AppModule;
 import com.example.mvvmdaggerhilt.model.RecyclerData;
 import com.example.mvvmdaggerhilt.network.RetroRepository;
 import com.example.mvvmdaggerhilt.network.RetrofitServisInterface;
@@ -25,6 +26,7 @@ public class MainActivtyViewModel extends ViewModel {
     @Inject
     public MainActivtyViewModel() {
         liveData = new MutableLiveData();
+        retrofitServisInterface = new AppModule().getRetrofitServisInterface(new AppModule().getRetrofitInstance());
     }
 
     public MutableLiveData<List<RecyclerData>> getLiveData() {
@@ -33,7 +35,7 @@ public class MainActivtyViewModel extends ViewModel {
 
     public void makeApiCall() {
         RetroRepository retroRepository = new RetroRepository(retrofitServisInterface);
-        retroRepository.makeAPICall("us", liveData);
+        retroRepository.makeAPICall("cat", liveData);
     }
 
 }
